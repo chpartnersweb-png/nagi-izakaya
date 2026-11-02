@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/generated/nagi-logo-sumi-v1.png';
+import { site, navigation } from '../data/site';
+import Arrow from './Arrow.astro';
+---
+<header class="site-header" data-header>
+  <a class="header-brand" href="#top" aria-label="凪 居酒屋 トップへ">
+    <Image src={logo} alt="凪 居酒屋" width={65} loading="eager" />
+    <span class="header-location">日暮里<span>米と魚と、日本酒と。</span></span>
+  </a>
+  <nav class="desktop-nav" aria-label="メインナビゲーション">{navigation.map((item) => <a href={item.href}>{item.label}</a>)}</nav>
+  <a class="header-reservation" href={site.tabelog} target="_blank" rel="noopener noreferrer">食べログで予約<Arrow diagonal /></a>
+  <details class="mobile-menu" data-mobile-menu>
+    <summary aria-label="ナビゲーションメニュー"><span class="menu-lines"><i></i><i></i></span><span class="menu-label">メニュー</span></summary>
+    <nav aria-label="モバイルナビゲーション" class="mobile-menu-panel">
+      <span class="eyebrow">NAGI / NIPPORI</span>
+      {navigation.map((item, index) => <a href={item.href}><small>0{index + 1}</small>{item.label}<Arrow /></a>)}
+      <a class="mobile-menu-tabelog" href={site.tabelog} target="_blank" rel="noopener noreferrer">食べログで予約<Arrow diagonal /></a>
+      <a class="mobile-menu-phone" href={site.telephoneHref}>電話で予約・お問い合わせ<small>{site.telephone}</small></a>
+    </nav>
+  </details>
+</header>

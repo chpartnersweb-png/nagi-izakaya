@@ -1,0 +1,22 @@
+---
+import { courses, courseSource } from '../data/courses';
+import Arrow from './Arrow.astro';
+---
+<section id="course" class="course-section section-pad" aria-labelledby="course-title">
+  <div class="container">
+    <div class="course-heading" data-reveal>
+      <div><div class="section-label"><span class="tiny-square"></span>GATHER AROUND THE TABLE</div><h2 id="course-title" class="section-title">乾杯から、<br /><span>おいしい集まりを。</span></h2></div>
+      <p class="section-intro">魚を味わう日も、鍋を囲む日も。<br />飲み放題とともに楽しむ、凪のコース。<br />ご予約は食べログからも承ります。</p>
+    </div>
+    <div class="course-list">
+      {courses.map((course) => (
+        <article class="course-row" data-reveal>
+          <span class="course-number" aria-hidden="true">{course.number}</span>
+          <div class="course-description"><p class="course-label">{course.label}</p><h3>{course.name}</h3><p>{course.description}</p><ul class="course-conditions"><li>{course.includes}</li>{course.dishes && <li>{course.dishes}</li>}<li>{course.people}</li></ul></div>
+          <div class="course-booking"><p class="course-price">{course.price.toLocaleString('ja-JP')}<span>円<small>（税込）</small></span></p><a href={courseSource} target="_blank" rel="noopener noreferrer" aria-label={`${course.name}の詳細・予約を食べログで見る`}>食べログで詳細・予約<Arrow diagonal /></a></div>
+        </article>
+      ))}
+    </div>
+    <div class="course-notes" data-reveal><p>コース内容・ご利用条件・最新の料金は、食べログでご確認ください。</p><a href={courseSource} target="_blank" rel="noopener noreferrer">食べログでお店を見る<Arrow diagonal /></a></div>
+  </div>
+</section>

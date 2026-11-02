@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+import dishOne from '../assets/S__49111060_0.jpg';
+import dishTwo from '../assets/S__49111061_0.jpg';
+import dishThree from '../assets/S__49111065_0.jpg';
+import { site } from '../data/site';
+import Arrow from './Arrow.astro';
+---
+<section class="food-gallery section-pad" aria-labelledby="gallery-title">
+  <div class="gallery-heading container" data-reveal><span class="eyebrow">MORE FROM OUR TABLE</span><h2 id="gallery-title">もう一品、の幸せ。</h2></div>
+  <div class="gallery-strip"><figure data-reveal><Image src={dishOne} alt="海老を盛り付けた料理の一例" width={720} format="webp" loading="lazy" /></figure><figure data-reveal><Image src={dishTwo} alt="鉄皿に盛り付けた料理の一例" width={720} format="webp" loading="lazy" /></figure><figure data-reveal><Image src={dishThree} alt="薬味を添えた小鉢料理の一例" width={720} format="webp" loading="lazy" /></figure></div>
+  <div class="instagram-link-wrap container" data-reveal><p>凪のひとこまを、Instagramでも。</p><a class="text-link" href={site.instagram} target="_blank" rel="noopener noreferrer"><span>{site.instagramHandle}<small>お店のInstagramを見る</small></span><Arrow diagonal /></a></div>
+</section>

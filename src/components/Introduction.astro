@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import table from '../assets/S__49111058_0.jpg';
+---
+<section id="about" class="introduction section-pad" aria-labelledby="about-title">
+  <div class="intro-heading container">
+    <div class="section-label" data-reveal><span class="tiny-square"></span>ABOUT NAGI<span class="section-number">一</span></div>
+    <h2 id="about-title" class="intro-title" data-reveal>おいしい時間に、<br /><span>ひと息つこう。</span></h2>
+    <div class="intro-copy" data-reveal><p>朝一番に入荷した魚と、<br />こだわりの米。<br />その日の気分で選ぶ、日本酒。</p><p>ひとりでふらっと。<br />大切な人と、気のおけない仲間と。<br />今夜の食卓を、凪で囲みませんか。</p></div>
+    <span class="intro-watermark" aria-hidden="true">凪</span>
+  </div>
+  <figure class="intro-photo" data-reveal><Image src={table} alt="刺身や鍋、日本酒など、凪の料理が並ぶ食卓" width={660} format="webp" loading="lazy" /><figcaption><span>魚、米、酒。食卓を囲むよろこび。</span><span>NAGI'S TABLE</span></figcaption></figure>
+  <div class="intro-principles container" data-reveal><p><span>魚</span>朝一番に入荷した魚を。</p><p><span>米</span>食事の楽しみは、米からも。</p><p><span>酒</span>日本酒は、20種以上から。</p></div>
+</section>

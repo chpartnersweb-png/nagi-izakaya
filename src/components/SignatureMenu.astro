@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import pot from '../assets/S__49111053_0.jpg';
+import secondPot from '../assets/S__49111055_0.jpg';
+import fish from '../assets/S__49111052_0.jpg';
+import { menu } from '../data/menu';
+---
+<section id="menu" class="signature section-pad" aria-labelledby="menu-title">
+  <div class="container menu-heading"><div data-reveal><div class="section-label"><span class="tiny-square"></span>OUR SELECTION<span class="section-number">二</span></div><h2 id="menu-title" class="section-title">今夜の、<br /><span>食べたい。</span></h2></div><p class="section-intro" data-reveal>鍋を囲んで、魚を味わって。<br />米のおいしさまで、ゆっくりと。<br />凪で楽しむ、五つのお品書き。</p></div>
+  <div class="menu-editorial container">
+    <div class="menu-photo-story">
+      <figure class="menu-photo-main" data-reveal><Image src={pot} alt="白い器に盛り付けた鍋料理" width={660} format="webp" loading="lazy" /><figcaption><span>食卓から、あたたまる。</span><small>凪の料理より</small></figcaption></figure>
+      <div class="menu-photo-pair"><figure data-reveal><Image src={fish} alt="青緑の器に盛り付けた刺身の一例" width={660} format="webp" loading="lazy" /></figure><figure data-reveal><Image src={secondPot} alt="ニラや野菜を盛り付けた鍋料理の一例" width={660} format="webp" loading="lazy" /></figure></div>
+      <p class="photo-caption">写真は料理の一例です。</p>
+    </div>
+    <div class="menu-paper" data-reveal><div class="menu-paper-top"><span>凪のお品書き</span><small>五つの楽しみ</small></div><ol class="dish-list">{menu.map((dish) => <li><span class="dish-number">{dish.number}</span><div class="dish-info"><span class="dish-category">{dish.category}</span><h3>{dish.name}</h3></div><p class="dish-price">{dish.price.toLocaleString('ja-JP')}<span>円</span></p></li>)}</ol><p class="menu-footnote">お料理の詳細は、お気軽にお問い合わせください。</p></div>
+  </div>
+</section>

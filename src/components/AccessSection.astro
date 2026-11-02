@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import sign from '../assets/S__49111067_0.jpg';
+import { site } from '../data/site';
+import Arrow from './Arrow.astro';
+---
+<section id="access" class="access section-pad" aria-labelledby="access-title">
+  <div class="container">
+    <div class="access-heading" data-reveal><div class="section-label"><span class="tiny-square"></span>FIND US<span class="section-number">五</span></div><h2 id="access-title" class="section-title">日暮里駅から、<br /><span>今夜の食卓へ。</span></h2><p>駅直結・徒歩1分。<br />ステーションガーデンタワー3階で、お待ちしています。</p></div>
+    <div class="access-grid">
+      <div class="access-visual" data-reveal><figure><Image src={sign} alt="来店時の目印となる「凪 居酒屋」の店舗看板" width={850} format="webp" loading="lazy" /><figcaption>こちらの看板が目印です。</figcaption></figure></div>
+      <div class="shop-information" data-reveal><h3>凪 <span>居酒屋</span></h3><dl><div><dt>住所</dt><dd>〒{site.postalCode}<br />{site.address}<br />{site.building}</dd></div><div><dt>アクセス</dt><dd>{site.access}</dd></div><div><dt>営業時間</dt><dd>{site.hours.map((hours) => <span class="hours-line"><span>{hours.days}</span>{hours.time}</span>)}</dd></div><div><dt>定休日</dt><dd>なし</dd></div><div><dt>お席</dt><dd>40席・全席テーブル<br />貸切も承ります</dd></div><div><dt>お支払い</dt><dd>現金・カード・電子マネー・PayPay</dd></div></dl></div>
+    </div>
+    <section class="access-map" aria-labelledby="access-map-title">
+      <div class="access-map-heading" data-reveal>
+        <div><span class="eyebrow">ACCESS MAP</span><h3 id="access-map-title">日暮里駅直結・徒歩1分。</h3><p>{site.building}</p></div>
+        <a class="map-link" href={site.map} target="_blank" rel="noopener noreferrer"><span>Googleマップで経路を見る</span><Arrow diagonal /></a>
+      </div>
+      <div class="access-map-frame">
+        <iframe src={site.mapEmbed} title="凪 居酒屋の所在地：日暮里ステーションガーデンタワー周辺のGoogleマップ" width="1180" height="440" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </section>
+    <div class="reservation-block" data-reveal><div><span class="eyebrow">RESERVATION & CONTACT</span><h3>今夜は、凪にしませんか。</h3><p>ご予約は食べログ、またはお電話で。<br />貸切のご相談も、お気軽にどうぞ。</p><a class="reservation-tabelog" href={site.tabelog} target="_blank" rel="noopener noreferrer">食べログで予約する<Arrow diagonal /></a></div><a href={site.telephoneHref} class="reservation-phone"><span>{site.telephone}</span><small>電話で予約・お問い合わせ</small><Arrow diagonal /></a></div>
+  </div>
+</section>
