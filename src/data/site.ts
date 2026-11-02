@@ -1,5 +1,11 @@
 const mapAddress = '東京都荒川区西日暮里2-25-1 ステーションガーデンタワー';
 
+// 画面の営業時間と構造化データで同じ情報を使う。
+const openingHours = [
+  { days: '平日', opens: '17:00', closes: '23:00', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] },
+  { days: '土日祝', opens: '15:00', closes: '23:00', dayOfWeek: ['Saturday', 'Sunday', 'PublicHolidays'] },
+];
+
 export const site = {
   name: '凪 居酒屋',
   telephone: '080-2035-0948',
@@ -14,10 +20,7 @@ export const site = {
   // Place ID未確認のため、提供住所を目的地として使用。
   map: 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(mapAddress),
   mapEmbed: 'https://www.google.com/maps?q=' + encodeURIComponent(mapAddress) + '&hl=ja&z=16&output=embed',
-  hours: [
-    { days: '平日', time: '17:00—23:00' },
-    { days: '土日祝', time: '15:00—23:00' },
-  ],
+  hours: openingHours.map((hours) => ({ ...hours, time: `${hours.opens}—${hours.closes}` })),
 };
 
 export const navigation = [

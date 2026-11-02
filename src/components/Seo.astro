@@ -1,0 +1,111 @@
+---
+import { getImage } from 'astro:assets';
+import tablePhoto from '../assets/S__49111058_0.jpg';
+import interiorPhoto from '../assets/S__49111057_0.jpg';
+import logo from '../assets/generated/nagi-logo-sumi-v1.png';
+import { SITE_URL, seo } from '../config/seo.mjs';
+import { site } from '../data/site';
+
+// canonicalに閲覧時のホスト名やクエリを使用しない。
+const canonical = new URL('/', SITE_URL).href;
+const absolute = (path: string) => new URL(path, SITE_URL).href;
+const [og, interior, brand, favicon] = await Promise.all([
+  getImage({ src: tablePhoto, width: 660, format: 'jpg' }),
+  getImage({ src: interiorPhoto, width: 660, format: 'jpg' }),
+  getImage({ src: logo, width: 320, format: 'png' }),
+  getImage({ src: logo, width: 64, format: 'png' }),
+]);
+const ogUrl = absolute(og.src);
+const restaurantId = `${canonical}#restaurant`;
+const websiteId = `${canonical}#website`;
+const webpageId = `${canonical}#webpage`;
+const imageId = `${canonical}#primaryimage`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Restaurant',
+      '@id': restaurantId,
+      name: site.name,
+      url: canonical,
+      description: seo.description,
+      telephone: '+81-80-2035-0948',
+      address: {
+        '@type': 'PostalAddress',
+        postalCode: site.postalCode,
+        addressRegion: '東京都',
+        addressLocality: '荒川区',
+        streetAddress: `西日暮里2-25-1 ${site.building}`,
+        addressCountry: 'JP',
+      },
+      image: [ogUrl, absolute(interior.src)],
+      logo: absolute(brand.src),
+      hasMenu: `${canonical}#menu`,
+      acceptsReservations: site.tabelog,
+      sameAs: [site.tabelog, site.instagram],
+      paymentAccepted: ['現金', 'カード', '電子マネー', 'PayPay'],
+      openingHoursSpecification: site.hours.map((hours) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: hours.dayOfWeek.map((day) => `https://schema.org/${day}`),
+        opens: hours.opens,
+        closes: hours.closes,
+      })),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      url: canonical,
+      name: site.name,
+      inLanguage: 'ja',
+      publisher: { '@id': restaurantId },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': webpageId,
+      url: canonical,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: 'ja',
+      isPartOf: { '@id': websiteId },
+      about: { '@id': restaurantId },
+      mainEntity: { '@id': restaurantId },
+      primaryImageOfPage: { '@id': imageId },
+    },
+    {
+      '@type': 'ImageObject',
+      '@id': imageId,
+      url: ogUrl,
+      contentUrl: ogUrl,
+      width: og.attributes.width,
+      height: og.attributes.height,
+      caption: seo.imageAlt,
+    },
+  ],
+};
+const jsonLd = JSON.stringify(structuredData).replace(/</g, '\\u003c');
+---
+<title>{seo.title}</title>
+<meta name="description" content={seo.description} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href={canonical} />
+<link rel="sitemap" type="application/xml" href={absolute('/sitemap.xml')} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={seo.title} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:image" content={ogUrl} />
+<meta property="og:image:secure_url" content={ogUrl} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content={String(og.attributes.width)} />
+<meta property="og:image:height" content={String(og.attributes.height)} />
+<meta property="og:image:alt" content={seo.imageAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={seo.title} />
+<meta name="twitter:description" content={seo.description} />
+<meta name="twitter:image" content={ogUrl} />
+<meta name="twitter:image:alt" content={seo.imageAlt} />
+<link rel="icon" type="image/png" href={favicon.src} />
+<script type="application/ld+json" set:html={jsonLd} />

@@ -1,13 +1,6 @@
 ---
-import { getImage } from 'astro:assets';
-import ogImage from '../assets/S__49111058_0.jpg';
-import logo from '../assets/generated/nagi-logo-sumi-v1.png';
+import Seo from '../components/Seo.astro';
 import '../styles/global.css';
-const title = '凪 居酒屋｜日暮里駅直結・米と魚と日本酒を楽しむ';
-const description = '日暮里駅直結・徒歩1分、ステーションガーデンタワー3階の「凪 居酒屋」。朝一番に入荷した魚とこだわりの米、日本酒20種以上をお楽しみいただけます。40席・全席テーブル、貸切のご相談も。ご予約は080-2035-0948。';
-const og = await getImage({ src: ogImage, width: 660, format: 'jpg' });
-const ogUrl = Astro.site ? new URL(og.src, Astro.site).href : undefined;
-const favicon = await getImage({ src: logo, width: 64, format: 'png' });
 ---
 <!doctype html>
 <html lang="ja">
@@ -15,19 +8,7 @@ const favicon = await getImage({ src: logo, width: 64, format: 'png' });
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f5f1e8" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ja_JP" />
-    <meta property="og:site_name" content="凪 居酒屋" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    {Astro.site && <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />}
-    {Astro.site && <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />}
-    {ogUrl && <meta property="og:image" content={ogUrl} />}
-    {ogUrl && <meta property="og:image:alt" content="凪の料理と日本酒が並ぶ食卓" />}
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/png" href={favicon.src} />
+    <Seo />
   </head>
   <body id="top"><a href="#main" class="skip-link">本文へ移動</a><slot /><script>import '../scripts/main';</script></body>
 </html>

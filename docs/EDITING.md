@@ -50,9 +50,10 @@ CSSの初期状態では本文は表示される。モバイルナビゲーシ�
 - 電話：tel:08020350948
 - Instagram：提供されたNagiizakaya1から作成したURL。実在・店舗の対応は未検証。
 - 地図：住所を検索対象にしたGoogleマップiframeを埋め込み。経路リンクも併設。src/data/site.tsのmapAddressを埋め込みと経路リンクで共用する。Place ID・店舗ピン・建物内の入口経路は未確認。
-- title・description・日本語設定・OG基本情報を実装。
-- 正式ドメインは未提供。astro.config.mjsにsiteが設定された場合のみ、絶対URLのcanonical／og:url／実写OGP画像URLを出力する。localhostや仮ドメインは埋め込まない。
-- 公開先が決まったらastro.config.mjsのdefineConfigにsiteを追加する。例示URLをそのまま公開設定にしない。
+- 公開URL https://nagi-izakaya.pages.dev/ をsrc/config/seo.mjsに設定し、astro.config.mjsとSEO出力で共用する。
+- title・description・canonical・OGP・X向けカード・Restaurant等のJSON-LDをsrc/components/Seo.astroへ集約。OGPには提供された実写の料理集合写真を使用する。
+- robots.txtとsitemap.xmlを静的エンドポイントで追加。サイトマップはトップの正規URLのみを掲載する。
+- SEOの実装内容・公開反映前の状態・引き継ぎはSEO.mdを参照。
 - 検索順位・Search Console・インデックス登録は未確認。
 
 ## 開発サーバー
